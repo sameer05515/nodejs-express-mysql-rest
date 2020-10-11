@@ -3,9 +3,13 @@ const express = require('express');
 var app = express();
 const bodyParser = require('body-parser');
 var path = require('path');
-var async = require('async')
+var async = require('async');
 
-app.use(bodyParser.json());
+var relGrphRepr=require("./apis/relation-graph-representation")
+
+//app.use(bodyParser.json());
+app.use(express.urlencoded());
+app.use(express.json());
 
 var mysqlConn = mysql.createConnection({
     host: "localhost",
@@ -15,13 +19,7 @@ var mysqlConn = mysql.createConnection({
     multipleStatements: true
 });
 
-var mysqlConnRelGrphRep = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "relation-graph-representation",
-    multipleStatements: true
-});
+
 
 mysqlConn.connect((err) => {
     if (!err) {
@@ -59,108 +57,15 @@ app.get('/interview/categories/:categoryId', (req, res) => {
     })
 });
 
-app.get('/test1', function (req, res) {
+app.get('/relation-graph-representation/combined-person-relation/:personId', relGrphRepr.combinedPersonRelationByPersonId);
 
-    var userId = req.params.userId;
-    async.parallel({
-        nodes: function (callback) {
-            mysqlConnRelGrphRep.query('SELECT id,name,label FROM t_person', callback)
-        },
-        links: function (callback) {
-            mysqlConnRelGrphRep.query('SELECT source,target,relation_type as type FROM t_person_relation', callback)
-        }
-    },
-        // Final callback, with all the results
-        function (err, results) {
-            //results now has {nodes: ..., links: ...}
-            var data = { 'nodes': [], 'links': [] };
-            data.nodes = results.nodes;
-            data.links = results.links;
+app.get('/relation-graph-representation/combined-person-relation', relGrphRepr.combinedPersonRelationAll);
 
-            //   var user = results.user;
-            //   user.photos = results.photos;
-            res.status(200).end(JSON.stringify(data));
-        });
+app.get('/relation-graph-representation/person', relGrphRepr.personsAll);
 
+app.get('/relation-graph-representation/person/relation', relGrphRepr.relationsAll);
 
-});
-
-app.get('/test', async (req, res) => {
-    var data = { 'nodes': [], 'links': [] }
-
-    mysqlConnRelGrphRep.query("SELECT * FROM t_person", (err, rows, fields) => {
-        if (!err) {
-            //res.send(rows);
-            data.nodes = { ...rows };
-            //res.send(nodeData);
-        } else {
-            console.log(err);
-        }
-    });
-
-    mysqlConnRelGrphRep.query("SELECT * FROM t_person_relation", (err, rows, fields) => {
-        if (!err) {
-            //res.send(rows);
-            data.links = { ...rows };
-            //res.send(edgeData);
-        } else {
-            console.log(err);
-        }
-    });
-
-
-    res.send(data);
-});
-
-app.get('/relation-graph-representation/person', (req, res) => {
-    var nodeData = [];
-    // var edgeData=[];
-    mysqlConnRelGrphRep.query("SELECT * FROM t_person", (err, rows, fields) => {
-        if (!err) {
-            //res.send(rows);
-            nodeData = rows;
-            res.send(nodeData);
-        } else {
-            console.log(err);
-        }
-    });
-    // mysqlConnRelGrphRep.query("SELECT * FROM t_person_relation",(err,rows,fields)=>{
-    //     if(!err){
-    //         //res.send(rows);
-    //         edgeData=rows;
-    //         console.log(edgeData);
-    //     }else{
-    //         console.log(err);
-    //     }
-    // });
-
-    //res.send({'nodes':nodeData,'links':edgeData});
-});
-
-app.get('/relation-graph-representation/person/relation', (req, res) => {
-    // var nodeData=[];
-    var edgeData = [];
-    // mysqlConnRelGrphRep.query("SELECT * FROM t_person",(err,rows,fields)=>{
-    //     if(!err){
-    //         //res.send(rows);
-    //         nodeData=rows;
-    //         console.log(nodeData);
-    //     }else{
-    //         console.log(err);
-    //     }
-    // });
-    mysqlConnRelGrphRep.query("SELECT * FROM t_person_relation", (err, rows, fields) => {
-        if (!err) {
-            //res.send(rows);
-            edgeData = rows;
-            res.send(edgeData);
-        } else {
-            console.log(err);
-        }
-    });
-
-    // res.send({'nodes':nodeData,'links':edgeData});
-});
+app.post('/relation-graph-representation/person/relation/',relGrphRepr.addRelation)
 
 //app.delete()
 
