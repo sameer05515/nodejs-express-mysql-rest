@@ -10,12 +10,12 @@ var mysqlConnRelGrphRep = mysql.createConnection({
     multipleStatements: true
 });
 
-exports.addRelation=(req,res)=>{
+exports.addRelation=async (req,res)=>{
     var source=req.body.source;
     var target=req.body.target;
     var type=req.body.type;
 
-    res.send({'result':'Successfully saved relation! '+source+' is '+type+' of '+target+''});
+    // res.send({'result':'Successfully saved relation! '+source+' is '+type+' of '+target+''});
 
     mysqlConnRelGrphRep.query('INSERT INTO t_person_relation(source, target, relation_type) VALUES (?,?,?)',[source,target,type],(err,result)=>{
         if(!err){
