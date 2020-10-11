@@ -13,6 +13,14 @@ var mysqlConn=mysql.createConnection({
     multipleStatements:true
 });
 
+var mysqlConnRelGrphRep=mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"",
+    database:"relation-graph-representation",
+    multipleStatements:true
+});
+
 mysqlConn.connect((err)=>{
     if(!err){
         console.log("db connection succeeded!");
@@ -42,6 +50,56 @@ app.get('/interview/categories/:categoryId',(req,res)=>{
             console.log(err);
         }
     })
+});
+
+app.get('/relation-graph-representation/person',(req,res)=>{
+    var nodeData=[];
+    // var edgeData=[];
+    mysqlConnRelGrphRep.query("SELECT * FROM t_person",(err,rows,fields)=>{
+        if(!err){
+            //res.send(rows);
+            nodeData=rows;
+            res.send(nodeData);
+        }else{
+            console.log(err);
+        }
+    });
+    // mysqlConnRelGrphRep.query("SELECT * FROM t_person_relation",(err,rows,fields)=>{
+    //     if(!err){
+    //         //res.send(rows);
+    //         edgeData=rows;
+    //         console.log(edgeData);
+    //     }else{
+    //         console.log(err);
+    //     }
+    // });
+
+    //res.send({'nodes':nodeData,'links':edgeData});
+});
+
+app.get('/relation-graph-representation/person/relation',(req,res)=>{
+    // var nodeData=[];
+    var edgeData=[];
+    // mysqlConnRelGrphRep.query("SELECT * FROM t_person",(err,rows,fields)=>{
+    //     if(!err){
+    //         //res.send(rows);
+    //         nodeData=rows;
+    //         console.log(nodeData);
+    //     }else{
+    //         console.log(err);
+    //     }
+    // });
+    mysqlConnRelGrphRep.query("SELECT * FROM t_person_relation",(err,rows,fields)=>{
+        if(!err){
+            //res.send(rows);
+            edgeData=rows;
+            res.send(edgeData);
+        }else{
+            console.log(err);
+        }
+    });
+
+    // res.send({'nodes':nodeData,'links':edgeData});
 });
 
 //app.delete()
