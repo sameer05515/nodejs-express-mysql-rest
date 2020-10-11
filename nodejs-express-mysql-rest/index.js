@@ -2,6 +2,7 @@ const mysql =require('mysql');
 const express=require('express');
 var app=express();
 const bodyParser=require('body-parser');
+var path = require('path');
 
 app.use(bodyParser.json());
 
@@ -30,6 +31,11 @@ mysqlConn.connect((err)=>{
 });
 
 app.listen(3000,()=>{console.log("Express server is running at port 3000")});
+
+app.get('/', (req, res) => {
+    //res.send('Hello World, from express');
+    res.sendFile(path.join(__dirname + '/help.html'));
+});
 
 app.get('/interview/categories',(req,res)=>{
     mysqlConn.query("select * from t_category",(err,rows,fields)=>{

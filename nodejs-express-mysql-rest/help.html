@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>Powered by ExpressJS,NodeJS,MySQL : All available API's</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>All available API's</h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><b>API End Point</b></th>
+                    <th><b>Method</b></th>
+                    <th><b>Parameters</b></th>
+                    <th><b>Description</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>'/'</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>Base page</td>
+                </tr>
+                <tr>
+                    <td>'/interview/categories'</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>Gets All Interview category details</td>
+                </tr>
+                <tr>
+                    <td>'/interview/categories/:categoryId'</td>
+                    <td>GET</td>
+                    <td>categoryId</td>
+                    <td>Gets Interview category detail of given <b>{categoryId}</b></td>
+                </tr>
+                <tr>
+                    <td>'/relation-graph-representation/person'</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>Get all person</td>
+                </tr>
+                <tr>
+                    <td>'/relation-graph-representation/person/relation'</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>Get all person relation</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+
+</body>
+
+</html>
