@@ -5,6 +5,10 @@ const bodyParser = require('body-parser');
 var path = require('path');
 var async = require('async');
 
+var cors = require('cors');
+
+app.use(cors());
+
 var relGrphRepr=require("./apis/relation-graph-representation")
 
 //app.use(bodyParser.json());
