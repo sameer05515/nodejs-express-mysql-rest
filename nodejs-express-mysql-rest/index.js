@@ -78,4 +78,10 @@ app.post('/event-logging/label/',relEventLoggingApi.addLabel);
 app.get('/event-logging/label/all',relEventLoggingApi.allLabel);
 app.get('/event-logging/label/:id',relEventLoggingApi.getLabelById);
 app.put('/event-logging/label/:id',relEventLoggingApi.updateLabelById);
+
 app.get('/getUUID/:count',relEventLoggingApi.getUUID);
+
+app.post('/event-logging/event/',relEventLoggingApi.addEvent);
+app.get('/event-logging/event/all',relEventLoggingApi.allEvent);
+app.get('/event-logging/event/:id',relEventLoggingApi.getEventById);
+app.put('/event-logging/event/:id',relEventLoggingApi.updateEventById);
