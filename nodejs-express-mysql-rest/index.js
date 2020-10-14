@@ -76,4 +76,6 @@ app.post('/relation-graph-representation/person/relation/',relGrphRepr.addRelati
 
 app.post('/event-logging/label/',relEventLoggingApi.addLabel);
 app.get('/event-logging/label/all',relEventLoggingApi.allLabel);
+app.get('/event-logging/label/:id',relEventLoggingApi.getLabelById);
+app.put('/event-logging/label/:id',relEventLoggingApi.updateLabelById);
 app.get('/getUUID/:count',relEventLoggingApi.getUUID);

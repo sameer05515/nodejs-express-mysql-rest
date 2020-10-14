@@ -11,60 +11,47 @@ var pool = mysql.createPool({
     multipleStatements: true
 });
 
-// var mysqlConnRelGrphRep = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "",
-//     database: "relation-graph-representation",
-//     multipleStatements: true
-// });
 
-exports.addLabel = (req, res) => {
+exports.updateLabelById = (req, res) => {
     pool.getConnection(function (err, connection) {
         if (err) {
-            res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail', 'data': err });
-            //return;
+            res.send({ 'result': 'Error while updating data', 'status': 'Fail', 'description': 'Fail', 'data': err });
+
         }
 
         connection.beginTransaction(function (err) {
             if (!err) {
-                connection.query('INSERT INTO t_label(label, description) values (?,?)',
-                    [req.body.label, req.body.description], function (err, results) {
-                        
-                        if (!err) {
-                            
-                            // res.send({
-                            //     'result': 'Successfully saved label data! \'' + req.body.label +
-                            //         '\' and \'' + req.body.description + '\' are connected.',
-                            //     'status': 'Success', 'description': 'Success', 'data': { 'newId': results.insertId }
-                            // });
+                connection.query('UPDATE t_label set label=?,description=?,updated_on=current_timestamp(),enabled=? WHERE id=?',
+                    [req.body.label, req.body.description, req.body.enabled, req.params.id], function (err, results) {
 
-                            connection.commit(function(err){
-                                if(err){
-                                    connection.rollback(function() {
-                                        res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail Validation: Rollbacking data', 'data': err });
-                                      }); 
-                                }else{
+                        if (!err) {
+
+
+
+                            connection.commit(function (err) {
+                                if (err) {
+                                    connection.rollback(function () {
+                                        res.send({ 'result': 'Error while updating data', 'status': 'Fail', 'description': 'Fail Validation: Rollbacking data', 'data': err });
+                                    });
+                                } else {
                                     console.log('Transaction Complete.');
                                     connection.release();
                                     res.send({
-                                        'result': 'Successfully saved label data! \'' + req.body.label +
-                                            '\' and \'' + req.body.description + '\' are connected.',
-                                        'status': 'Success', 'description': 'Success', 'data': { 'newId': results.insertId }
+                                        'result': 'Successfully updated label data! \'',
+                                        'status': 'Success', 'description': 'Success', 'data': { 'results': results }
                                     });
                                 }
                             });
                         } else {
-                            connection.rollback(function() {
+                            connection.rollback(function () {
                                 res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail Validation: Rollbacking data', 'data': err });
-                              });
-                            
+                            });
+
                         }
 
-                        
 
-                        //connection.release();
-                        // check null for results here
+
+
                     });
             } else {
                 res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail', 'data': err });
@@ -73,7 +60,61 @@ exports.addLabel = (req, res) => {
 
         connection.on('error', function (err) {
             res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail', 'data': err });
-            //return;
+
+        });
+    });
+};
+
+exports.addLabel = (req, res) => {
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail', 'data': err });
+
+        }
+
+        connection.beginTransaction(function (err) {
+            if (!err) {
+                connection.query('INSERT INTO t_label(label, description) values (?,?)',
+                    [req.body.label, req.body.description], function (err, results) {
+
+                        if (!err) {
+
+
+
+                            connection.commit(function (err) {
+                                if (err) {
+                                    connection.rollback(function () {
+                                        res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail Validation: Rollbacking data', 'data': err });
+                                    });
+                                } else {
+                                    console.log('Transaction Complete.');
+                                    connection.release();
+                                    res.send({
+                                        'result': 'Successfully saved label data! \'' + req.body.label +
+                                            '\' and \'' + req.body.description + '\' are connected.',
+                                        'status': 'Success', 'description': 'Success', 'data': { 'newId': results }
+                                    });
+                                }
+                            });
+                        } else {
+                            connection.rollback(function () {
+                                res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail Validation: Rollbacking data', 'data': err });
+                            });
+
+                        }
+
+
+
+
+                    });
+            } else {
+                res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail', 'data': err });
+            }
+        });
+
+        connection.on('error', function (err) {
+            res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': 'Fail', 'data': err });
+
         });
     });
 };
@@ -87,13 +128,37 @@ exports.allLabel = (req, res) => {
         connection.query('select * from t_label', function (err, results) {
             connection.release();
             if (!err) {
-                // callback(false, { rows: results });
+
                 res.send({
                     'result': 'Successfully fetched label data!',
                     'status': 'Success', 'description': 'Success', 'data': results
                 });
             }
-            // check null for results here
+
+        });
+        connection.on('error', function (err) {
+            res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': err });
+            return;
+        });
+    });
+};
+
+exports.getLabelById = (req, res) => {
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': err });
+            return;
+        }
+        connection.query('SELECT id, label, description, created_on, updated_on, enabled FROM t_label where id=?;', [req.params.id], function (err, results) {
+            connection.release();
+            if (!err) {
+
+                res.send({
+                    'result': 'Successfully fetched label data!',
+                    'status': 'Success', 'description': 'Success', 'data': results
+                });
+            }
+
         });
         connection.on('error', function (err) {
             res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': err });
@@ -108,16 +173,16 @@ exports.getUUID = (req, res) => {
             res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': err });
             return;
         }
-        connection.query('SELECT LEFT(UUID(), ?) as id;',[req.params.count], function (err, results) {
+        connection.query('SELECT LEFT(UUID(), ?) as id;', [req.params.count], function (err, results) {
             connection.release();
             if (!err) {
-                // callback(false, { rows: results });
+
                 res.send({
                     'result': 'Successfully fetched label data!',
                     'status': 'Success', 'description': 'Success', 'data': results
                 });
             }
-            // check null for results here
+
         });
         connection.on('error', function (err) {
             res.send({ 'result': 'Error while saving data', 'status': 'Fail', 'description': err });
