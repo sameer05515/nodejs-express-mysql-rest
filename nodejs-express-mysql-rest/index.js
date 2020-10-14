@@ -9,7 +9,8 @@ var cors = require('cors');
 
 app.use(cors());
 
-var relGrphRepr=require("./apis/relation-graph-representation")
+var relGrphRepr=require("./apis/relation-graph-representation");
+var relEventLoggingApi=require("./apis/event-logging-db-apis");
 
 //app.use(bodyParser.json());
 app.use(express.urlencoded());
@@ -69,7 +70,10 @@ app.get('/relation-graph-representation/person', relGrphRepr.personsAll);
 
 app.get('/relation-graph-representation/person/relation', relGrphRepr.relationsAll);
 
-app.post('/relation-graph-representation/person/relation/',relGrphRepr.addRelation)
+app.post('/relation-graph-representation/person/relation/',relGrphRepr.addRelation);
 
 //app.delete()
 
+app.post('/event-logging/label/',relEventLoggingApi.addLabel);
+app.get('/event-logging/label/all',relEventLoggingApi.allLabel);
+app.get('/getUUID/:count',relEventLoggingApi.getUUID);
