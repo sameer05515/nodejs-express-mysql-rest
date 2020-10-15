@@ -27,13 +27,13 @@
                 <tr>
                     <td>'/'</td>
                     <td>GET</td>
-                    <td>None</td>
+                    <td>-</td>
                     <td>Base page</td>
                 </tr>
                 <tr>
                     <td>'/interview/categories'</td>
                     <td>GET</td>
-                    <td>None</td>
+                    <td>-</td>
                     <td>Gets All Interview category details</td>
                 </tr>
                 <tr>
@@ -45,21 +45,123 @@
                 <tr>
                     <td>'/relation-graph-representation/person'</td>
                     <td>GET</td>
-                    <td>None</td>
+                    <td>-</td>
                     <td>Get all person</td>
                 </tr>
                 <tr>
                     <td>'/relation-graph-representation/person/relation'</td>
                     <td>GET</td>
-                    <td>None</td>
+                    <td>-</td>
                     <td>Get all person relation</td>
                 </tr>
                 <tr>
                     <td>'/relation-graph-representation/combined-person-relation'</td>
                     <td>GET</td>
-                    <td>None</td>
+                    <td>-</td>
                     <td>Get all person and their relation</td>
                 </tr>
+                <tr>
+                    <td>'/relation-graph-representation/combined-person-relation'</td>
+                    <td>POST</td>
+                    <td>-</td>
+                    <td>Save given person and their relation</td>
+                </tr>
+
+                <tr>
+                    <td>'/getUUID/:count'</td>
+                    <td>GET</td>
+                    <td>count</td>
+                    <td>get UUID of length <b>count</b></td>
+                </tr>
+                
+                <tr>
+                    <td>'/event-logging/event/'</td>
+                    <td>POST</td>
+                    <td>-</td>
+                    <td>Save given event</td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/event/all'</td>
+                    <td>GET</td>
+                    <td>-</td>
+                    <td>Fetch all events</td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/event/:id'</td>
+                    <td>GET</td>
+                    <td>id</td>
+                    <td>Fetch event having id <b>id</b></td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/event/:id'</td>
+                    <td>PUT</td>
+                    <td>-</td>
+                    <td>Update event having id <b>id</td>
+                </tr>
+                
+                <tr>
+                    <td>'/event-logging/label/'</td>
+                    <td>POST</td>
+                    <td>-</td>
+                    <td>Save given label</td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/label/all'</td>
+                    <td>GET</td>
+                    <td>-</td>
+                    <td>Fetch all label</td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/label/:id'</td>
+                    <td>GET</td>
+                    <td>id</td>
+                    <td>Fetch label having id <b>id</b></td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/label/:id'</td>
+                    <td>PUT</td>
+                    <td>-</td>
+                    <td>Update label having id <b>id</td>
+                </tr>
+
+                <tr>
+                    <td>'/event-logging/event-label-relaion/'</td>
+                    <td>POST</td>
+                    <td>-</td>
+                    <td>Save given event</td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/event-label-relaion/all'</td>
+                    <td>GET</td>
+                    <td>-</td>
+                    <td>Fetch all events</td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/event-label-relaion/event/:event_id/label/:label_id'</td>
+                    <td>GET</td>
+                    <td>event_id , label_id</td>
+                    <td>Fetch event having <b>event_id</b> and <b>label_id</b></td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/event-label-relaion/event/:event_id'</td>
+                    <td>GET</td>
+                    <td>id</td>
+                    <td>Fetch event having <b>event_id</b> </td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/event-label-relaion/label/:label_id'</td>
+                    <td>GET</td>
+                    <td>label_id</td>
+                    <td>Fetch event having <b>label_id</b> </td>
+                </tr>
+                <tr>
+                    <td>'/event-logging/event-label-relaion/event/:event_id/label/:label_id'</td>
+                    <td>PUT</td>
+                    <td>event_id , label_id</td>
+                    <td>Update event-label-relaion having <b>event_id</b> and <b>label_id</b> </td>
+                </tr>
+
+                
             </tbody>
 
         </table>

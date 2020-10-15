@@ -85,3 +85,10 @@ app.post('/event-logging/event/',relEventLoggingApi.addEvent);
 app.get('/event-logging/event/all',relEventLoggingApi.allEvent);
 app.get('/event-logging/event/:id',relEventLoggingApi.getEventById);
 app.put('/event-logging/event/:id',relEventLoggingApi.updateEventById);
+
+app.post('/event-logging/event-label-relaion/',relEventLoggingApi.addEventLabelRelation);
+app.get('/event-logging/event-label-relaion/all',relEventLoggingApi.allEventLabelRelation);
+app.get('/event-logging/event-label-relaion/event/:event_id/label/:label_id',relEventLoggingApi.getEventLabelRelationById);
+app.get('/event-logging/event-label-relaion/event/:event_id',relEventLoggingApi.getEventLabelRelationByEventId);
+app.get('/event-logging/event-label-relaion/label/:label_id',relEventLoggingApi.getEventLabelRelationByLabelId);
+app.put('/event-logging/event-label-relaion/event/:event_id/label/:label_id',relEventLoggingApi.updateEventLabelRelationById);
