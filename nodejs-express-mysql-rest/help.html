@@ -31,6 +31,11 @@
                     <td>Base page</td>
                 </tr>
                 <tr>
+                    <td colspan="4" style="text-align: center;width: 100%;"><span
+                            style="font-weight: bold;text-align: center;width: 100%;">http://127.0.0.1:3000/interview/</span>
+                    </td>
+                </tr>
+                <tr>
                     <td>'/interview/categories'</td>
                     <td>GET</td>
                     <td>-</td>
@@ -41,6 +46,11 @@
                     <td>GET</td>
                     <td>categoryId</td>
                     <td>Gets Interview category detail of given <b>{categoryId}</b></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: center;width: 100%;"><span
+                            style="font-weight: bold;text-align: center;width: 100%;">http://127.0.0.1:3000/relation-graph-representation/</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>'/relation-graph-representation/person'</td>
@@ -73,7 +83,11 @@
                     <td>count</td>
                     <td>get UUID of length <b>count</b></td>
                 </tr>
-                
+                <tr>
+                    <td colspan="4" style="text-align: center;width: 100%;"><span
+                            style="font-weight: bold;text-align: center;width: 100%;">http://127.0.0.1:3000/event-logging/</span>
+                    </td>
+                </tr>
                 <tr>
                     <td>'/event-logging/event/'</td>
                     <td>POST</td>
@@ -98,7 +112,7 @@
                     <td>-</td>
                     <td>Update event having id <b>id</td>
                 </tr>
-                
+
                 <tr>
                     <td>'/event-logging/label/'</td>
                     <td>POST</td>
@@ -161,7 +175,65 @@
                     <td>Update event-label-relaion having <b>event_id</b> and <b>label_id</b> </td>
                 </tr>
 
-                
+                <!-- http://127.0.0.1:8080/interview-mgmt/rest -->
+                <tr>
+                    <td colspan="4" style="text-align: center;width: 100%;">
+                        <span
+                            style="font-weight: bold;text-align: center;width: 100%;">
+                            http://127.0.0.1:8080/interview-mgmt/rest
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>'/report/allQuestions'</td>
+                    <td>GET</td>
+                    <td>-</td>
+                    <td>ReportResource - Fetch all questions from DB </td>
+                </tr>
+                <tr>
+                    <td>'/report/allQuestions/history/{action}'</td>
+                    <td>GET</td>
+                    <td>-</td>
+                    <td>ReportResource - Fetch question history from DB having <b>action</b> </td>
+                </tr>
+                <tr>
+                    <td>'/report/allQuestions/categories/{categoryId}/questions/{questionId}'</td>
+                    <td>GET</td>
+                    <td>categoryId,questionId</td>
+                    <td>ReportResource - Fetch all questions from DB having <b>categoryId</b> and <b>questionId</b> </td>
+                </tr>
+                <tr>
+                    <td>'categories/{linkedCategoryID}/questions'</td>
+                    <td>GET</td>
+                    <td>linkedCategoryID</td>
+                    <td>QuestionResource - Fetch all questions from DB having <b>linkedCategoryID</b> </td>
+                </tr>
+                <tr>
+                    <td>'categories/{linkedCategoryID}/questions/{id}'</td>
+                    <td>GET</td>
+                    <td>linkedCategoryID,id</td>
+                    <td>QuestionResource - Fetch all questions from DB having <b>linkedCategoryID</b> and <b>id</b>(question id) </td>
+                </tr>
+                <tr>
+                    <td>'categories/{linkedCategoryID}/questions/{id}'</td>
+                    <td>DELETE</td>
+                    <td>linkedCategoryID,id</td>
+                    <td>QuestionResource - Delete all questions from DB having <b>linkedCategoryID</b> </td>
+                </tr>
+
+
+                <!-- http://127.0.0.1:8080/RestServices/rest -->
+
+                <tr>
+                    <td colspan="4" style="text-align: center;width: 100%;">
+                        <span
+                            style="font-weight: bold;text-align: center;width: 100%;">
+                            http://127.0.0.1:8080/RestServices/rest
+                        </span>
+                    </td>
+                </tr>
+
+
             </tbody>
 
         </table>
